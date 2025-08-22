@@ -5,24 +5,24 @@ import gdown
 from pathlib import Path
 from utils import normalizar
 
-SHEET = "Base 2025"
+SHEET = "Zerados"
 
 @st.cache_data
 def carregar_dados():
-    destino = Path("Calendarios.xlsx")
+    destino = Path("Tricolor.xlsx")
 
     # 1) Local primeiro (evita depender do Drive quando já existe)
     if destino.exists() and destino.stat().st_size > 0:
         return _ler(destino)
 
     # 2) Backup do ambiente (se você subir junto ao app)
-    backup = Path("/mnt/data/Calendarios.xlsx")
+    backup = Path("/mnt/data/Tricolor.xlsx")
     if backup.exists() and backup.stat().st_size > 0:
         st.warning("⚠️ Usando cópia local de backup (/mnt/data/Calendarios.xlsx).")
         return _ler(backup)
 
     # 3) Drive (robusto)
-    file_id = st.secrets.get("CALENDARIO_FILE_ID", "1Dmmg1R-xmmC0tfi5-1GVS8KLqhZJUqm5")  # seu atual
+    file_id = st.secrets.get("CALENDARIO_FILE_ID", "1t5t1oZYJdMSmZJDUpkFtOPtn5MVN9chN")  # seu atual
     if not _baixar_drive(file_id, destino):
         st.error("❌ Falha ao baixar do Google Drive. Verifique ID e compartilhamento (Qualquer pessoa com o link → Leitor).")
         st.stop()
